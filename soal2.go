@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"strings"
 )
@@ -21,15 +22,16 @@ func (p *Persegi) Keliling() float64 {
 type Segitiga struct {
 	Alas   float64
 	Tinggi float64
-	Sisi   float64
 }
 
 func (s *Segitiga) Luas() float64 {
 	return 0.5 * s.Alas * s.Tinggi
 }
 
-func (s *Segitiga) Keliling() float64 {
-	return 3 * s.Sisi
+func (s *Segitiga) Keliling() int {
+	sisi := math.Pow(s.Alas, 2) + math.Pow(s.Tinggi, 2)
+	sisi = math.Sqrt(sisi)
+	return int(s.Alas) + int(s.Tinggi) + int(sisi)
 }
 
 func menuPilihan() {
@@ -42,7 +44,7 @@ func menuPilihan() {
 }
 
 func menuSegitiga() {
-	var alas, tinggi, sisi float64
+	var alas, tinggi float64
 	var prompt string
 
 	for {
@@ -54,13 +56,9 @@ func menuSegitiga() {
 		fmt.Print("Input Tinggi Segitiga: ")
 		fmt.Scan(&tinggi)
 
-		fmt.Print("Input Sisi Segitiga: ")
-		fmt.Scan(&sisi)
-
 		segitiga := Segitiga{
 			Alas:   alas,
 			Tinggi: tinggi,
-			Sisi:   sisi,
 		}
 		fmt.Println("Hasil hitung:")
 		fmt.Printf("Luas: %v\n", segitiga.Luas())
